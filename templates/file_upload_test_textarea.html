@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>{{ title }} Test</title>
+        <style type="text/css">
+            #drop_zone {
+              border: 5px solid blue;
+              width:  200px;
+              height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ title }} Test</h1>
+        <textarea id="mytextarea"></textarea>
+        <span id="current_filename"></span>
+        <button onclick="javascript:submitTextareaContentFile()">Submit</button>
+        <script type="text/javascript">
+            const submitTextareaContentFile = () => {
+                var text = document.getElementById("mytextarea").value;
+                var file = new File([text], "foo.txt");
+                submit(file);
+            };
+        </script>
+        <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>{{ title }} Test</title>
+        <style type="text/css">
+            #drop_zone {
+              border: 5px solid blue;
+              width:  200px;
+              height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ title }} Test</h1>
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+        Drag one file here.
+        </div>
+        <span id="current_filename"></span>
+        <button onclick="javascript:submitDragAndDroppedFile()">Submit</button>
+        <script type="text/javascript">
+            var file;
+            function dropHandler(ev){
+                console.log("File dropped");
+                ev.preventDefault();
+                if (ev.dataTransfer.items){
+                    var item = ev.dataTransfer.items[0];
+                    if (item.kind === 'file'){
+                        file = item.getAsFile();
+                        document.getElementById("current_filename").innerHTML = file.name;
+                        console.log("File set");
+                    }
+                }
+            }
+            function dragOverHandler(ev) {
+              console.log('File(s) in drop zone');
+
+              // Prevent default behavior (Prevent file from being opened)
+              ev.preventDefault();
+            }
+
+            const submitDragAndDroppedFile = () => {
+                submit(file);
+            };
+        </script>
+        <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    </body>
+</html>

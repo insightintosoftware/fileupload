@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>{{ title }} Test</title>
+        <style type="text/css">
+            #drop_zone {
+              border: 5px solid blue;
+              width:  200px;
+              height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ title }} Test</h1>
+        <div>
+            <input type="file" id="file-uploader" multiple /> <button onclick="javascript:submitInputFile()">Submit</button>
+        </div>
+        <script type="text/javascript">
+            const submitInputFile = () => {
+                var file = document.getElementById('file-uploader').files[0];
+                submit(file);
+            };
+        </script>
+        <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    </body>
+</html>
