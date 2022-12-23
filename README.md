@@ -9,6 +9,9 @@
   * Drag and Drop event
   * Directly creating File object
 * File input(if you put "multiple" attribute) and Drag and Drop event allows you to select multiple files at a time and you can put all of those into FormData object and submit it. But this project is geared towards uploading a big file. In this case, we want to upload chunks of data and then combine the chunks once they are completely uploaded. We can use file.slice() function to split the chunks, upload them, put them in temporary folder, combine them in another folder and then upload it to AWS S3 bucket.
+* Optionally, you can upload the file to AWS S3. SDK takes care of multipart uploading part so you don't need to worry about uploading big file.
+* If you want to display a progress bar, you should use XMLHttpRequest instead of fetch().
+  * Sample code: https://stackoverflow.com/questions/35711724/upload-progress-indicators-for-fetch
 
 
 
