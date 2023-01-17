@@ -20,6 +20,10 @@ def drag_and_drop():
 def textarea():
     return render_template('file_upload_test_textarea.html', title='File Upload - Textarea')
 
+@app.route('/paste')
+def paste():
+    return render_template('file_upload_test_paste.html', title='File Upload - Paste')
+
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':

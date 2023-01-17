@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>{{ title }} Test</title>
+        <style type="text/css">
+            #drop_zone {
+              border: 5px solid blue;
+              width:  200px;
+              height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ title }} Test</h1>
+        <div style="width: 200px; height: 200px; background: grey" id="pasteTarget" onpaste="handlePaste(event)">
+            Click and paste here.
+        </div>
+        <span id="current_filename"></span>
+        <button onclick="javascript:submitDragAndDroppedFile()">Submit</button>
+        <script type="text/javascript">
+            var file;
+            function handlePaste(ev){
+                console.log("File pasted");
+                ev.preventDefault();
+                if (ev.clipboardData.items){
+                    var item = ev.clipboardData.items[0];
+                    if (item.kind === 'file'){
+                        file = item.getAsFile();
+                        document.getElementById("current_filename").innerHTML = file.name;
+                        console.log("File set");
+                    }
+                }
+            }
+
+            const submitDragAndDroppedFile = () => {
+                submit(file);
+            };
+        </script>
+        <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    </body>
+</html>
