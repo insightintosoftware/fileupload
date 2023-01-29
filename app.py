@@ -71,5 +71,18 @@ def upload_file():
 
     return 'success'
 
+@app.route('/upload_file_as_octet', methods=['GET', 'POST'])
+def upload_file_as_octet():
+    if request.method != 'POST':
+        return 'error'
+
+    data = request.data
+    filename = request.headers['X-File-Name']
+    file_path = "./UploadedFiles/" + filename
+    with open(file_path, "ab") as myfile:
+        myfile.write(data)
+
+    return 'success'
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5070)

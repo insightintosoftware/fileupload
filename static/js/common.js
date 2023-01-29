@@ -21,3 +21,15 @@ const pad = (num) => {
     let s = zeros + num;
     return s.substr(s.length-zeros.length);
 }
+
+const submitOctet = (file) => {
+    const url = 'http://localhost:5070/upload_file_as_octet';
+    let uniqueId = Date.now();
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-File-Name', uniqueId+file.name);
+    xhr.setRequestHeader('X-File-Size', file.size);
+    xhr.setRequestHeader('X-File-Type', file.type);
+    xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+    xhr.send(file.slice(0, file.size));
+}

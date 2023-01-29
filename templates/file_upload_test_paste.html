@@ -15,24 +15,40 @@
             Click and paste here.
         </div>
         <span id="current_filename"></span>
+        <div>
+            <input type="radio" name="ContentType" value="Multipart" id="Multipart" checked /><label for="Multipart">Multipart</label>
+            <input type="radio" name="ContentType" value="Octet" id="Octet" /><label for="Octet">Octet</label>
+        </div>
         <button onclick="javascript:submitDragAndDroppedFile()">Submit</button>
         <script type="text/javascript">
-            var file;
+            var file = null;
             function handlePaste(ev){
                 console.log("File pasted");
                 ev.preventDefault();
                 if (ev.clipboardData.items){
-                    var item = ev.clipboardData.items[0];
-                    if (item.kind === 'file'){
-                        file = item.getAsFile();
-                        document.getElementById("current_filename").innerHTML = file.name;
-                        console.log("File set");
+                    for (let i=0; i < ev.clipboardData.items.length; i++){
+                        var item = ev.clipboardData.items[i];
+                        if (item.kind === 'file'){
+                            file = item.getAsFile();
+                            document.getElementById("current_filename").innerHTML = file.name;
+                            console.log("File set");
+                            break;
+                        }
                     }
                 }
             }
 
             const submitDragAndDroppedFile = () => {
-                submit(file);
+                let nodeList = document.getElementsByName("ContentType");
+                let nodeArray = Array.from(nodeList);
+                let element = nodeArray.find((elem) => elem.checked);
+
+                if (file != null) {
+                    if (element.value == "Multipart")
+                        submit(file);
+                    else
+                        submitOctet(file);
+                }
             };
         </script>
         <script src="{{ url_for('static', filename='js/common.js') }}"></script>
